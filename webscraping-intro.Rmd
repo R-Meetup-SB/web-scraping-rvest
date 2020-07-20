@@ -103,6 +103,8 @@ The e*X*tensible *M*arkup *L*anguage (XML) provides a general approach for repre
 
 *C*ascading *S*tyle *S*heets (`CSS`) is a stylesheet language used to describe the presentation of a document written in HTML or XML. CSS describes how elements should be rendered on screen, on paper, in speech, or on other media. In CSS, **selectors** are used to target the HTML elements on a web page that we want to style. There are a wide variety of CSS selectors available, allowing for fine grained precision when selecting elements to style.
 
+**Want to train on how to use CSS to select objects? Here is your interactive site: http://flukeout.github.io/**
+
 
 # Web scraping workflow
 
@@ -128,9 +130,9 @@ For more information on the package: [here](https://github.com/hadley/rvest)
 
 ## Quick example
 
-Let us get started with organizing your evenings. The [*Funk Zone*](http://santabarbaraca.com/explore-and-discover-santa-barbara/neighborhoods-towns/santa-barbara/the-funk-zone/) is a pretty fun part of Santa Barbara, where you can find wineries, bars and restaurants. Check this out: <https://santabarbaraca.com/plan-your-trip/wine/wine-tasting-rooms/>
+Let us get started with organizing your evenings. The [*Funk Zone*](http://santabarbaraca.com/explore-and-discover-santa-barbara/neighborhoods-towns/santa-barbara/the-funk-zone/) is a pretty fun part of Santa Barbara, where you can find wineries, bars and restaurants. Check this out: <https://santabarbaraca.com/plan-your-trip/wine/wine-shops/>
 
-We are going to scrape the name of the wine tasting rooms and their websites out of this webpage and compile this information into a csv, so you will be able to quickly choose where to go to relax next time we can get out!
+We are going to scrape the name of the wine shops and their websites out of this webpage and compile this information into a csv, so you will be able to quickly choose where to go to relax next time we can get out!
 
 
 ### 1. Look at the website structure using our web browser inspector:
@@ -139,24 +141,24 @@ We are going to scrape the name of the wine tasting rooms and their websites out
 
 
 
-### 2. Use this information to extract the wine tasting room's names from the webpage:
+### 2. Use this information to extract the wine shop's names from the webpage:
 s
 ```{r, message=FALSE, warning=FALSE, error=FALSE}
 #install.packages("rvest")
 library("rvest")
 
-URL <- "https://santabarbaraca.com/plan-your-trip/wine/wine-tasting-rooms/"
+URL <- "https://santabarbaraca.com/plan-your-trip/wine/wine-shops/"
 
 # Read the webpage into R
 webpage <- read_html(URL)
 
 # Parse the webpage for bars
-wine_room <- html_nodes(webpage, ".listing-title")
+wine_listing <- html_nodes(webpage, ".listing-title")
 
 # Extract the name of the bar
-wine_rooms <- html_text(wine_room)
+wine_shops <- html_text(wine_listing)
 
-wine_rooms
+wine_shops
 ```
 
 ### 4. Extract the URLs to the websites:
@@ -177,14 +179,14 @@ websites_urls
 
 ```{r}
 # Create the data frame
-my_wine_tasting <- data.frame(wine_tasting_room = wine_rooms, 
+df_wine_shops <- data.frame(wine_tasting_room = wine_shops, 
                            website = websites_urls)
 
 # write it to csv
-write.csv(my_wine_tasting, "./data/places_you_will_go.csv", row.names = FALSE)
+write.csv(df_wine_shops, "./data/places_you_will_go.csv", row.names = FALSE)
 
 
-datatable(my_wine_tasting)
+datatable(df_wine_shops)
 
 
 ```

@@ -4087,6 +4087,7 @@ div.tocify {
 <div id="css" class="section level2" number="3.5">
 <h2 number="3.5"><span class="header-section-number">3.5</span> CSS</h2>
 <p><em>C</em>ascading <em>S</em>tyle <em>S</em>heets (<code>CSS</code>) is a stylesheet language used to describe the presentation of a document written in HTML or XML. CSS describes how elements should be rendered on screen, on paper, in speech, or on other media. In CSS, <strong>selectors</strong> are used to target the HTML elements on a web page that we want to style. There are a wide variety of CSS selectors available, allowing for fine grained precision when selecting elements to style.</p>
+<p><strong>Want to train on how to use CSS to select objects? Here is your interactive site: <a href="http://flukeout.github.io/" class="uri">http://flukeout.github.io/</a></strong></p>
 </div>
 </div>
 <div id="web-scraping-workflow" class="section level1" number="4">
@@ -4114,8 +4115,8 @@ div.tocify {
 </div>
 <div id="quick-example" class="section level2" number="5.2">
 <h2 number="5.2"><span class="header-section-number">5.2</span> Quick example</h2>
-<p>Let us get started with organizing your evenings. The <a href="http://santabarbaraca.com/explore-and-discover-santa-barbara/neighborhoods-towns/santa-barbara/the-funk-zone/"><em>Funk Zone</em></a> is a pretty fun part of Santa Barbara, where you can find wineries, bars and restaurants. Check this out: <a href="https://santabarbaraca.com/plan-your-trip/wine/wine-tasting-rooms/" class="uri">https://santabarbaraca.com/plan-your-trip/wine/wine-tasting-rooms/</a></p>
-<p>We are going to scrape the name of the wine tasting rooms and their websites out of this webpage and compile this information into a csv, so you will be able to quickly choose where to go to relax next time we can get out!</p>
+<p>Let us get started with organizing your evenings. The <a href="http://santabarbaraca.com/explore-and-discover-santa-barbara/neighborhoods-towns/santa-barbara/the-funk-zone/"><em>Funk Zone</em></a> is a pretty fun part of Santa Barbara, where you can find wineries, bars and restaurants. Check this out: <a href="https://santabarbaraca.com/plan-your-trip/wine/wine-shops/" class="uri">https://santabarbaraca.com/plan-your-trip/wine/wine-shops/</a></p>
+<p>We are going to scrape the name of the wine shops and their websites out of this webpage and compile this information into a csv, so you will be able to quickly choose where to go to relax next time we can get out!</p>
 <div id="look-at-the-website-structure-using-our-web-browser-inspector" class="section level3" number="5.2.1">
 <h3 number="5.2.1"><span class="header-section-number">5.2.1</span> 1. Look at the website structure using our web browser inspector:</h3>
 <div class="figure">
@@ -4123,31 +4124,31 @@ div.tocify {
 <p class="caption">web browser inspector</p>
 </div>
 </div>
-<div id="use-this-information-to-extract-the-wine-tasting-rooms-names-from-the-webpage" class="section level3" number="5.2.2">
-<h3 number="5.2.2"><span class="header-section-number">5.2.2</span> 2. Use this information to extract the wine tasting room’s names from the webpage:</h3>
+<div id="use-this-information-to-extract-the-wine-shops-names-from-the-webpage" class="section level3" number="5.2.2">
+<h3 number="5.2.2"><span class="header-section-number">5.2.2</span> 2. Use this information to extract the wine shop’s names from the webpage:</h3>
 <p>s</p>
 <pre class="r"><code>#install.packages(&quot;rvest&quot;)
 library(&quot;rvest&quot;)
 
-URL &lt;- &quot;https://santabarbaraca.com/plan-your-trip/wine/wine-tasting-rooms/&quot;
+URL &lt;- &quot;https://santabarbaraca.com/plan-your-trip/wine/wine-shops/&quot;
 
 # Read the webpage into R
 webpage &lt;- read_html(URL)
 
 # Parse the webpage for bars
-wine_room &lt;- html_nodes(webpage, &quot;.listing-title&quot;)
+wine_listing &lt;- html_nodes(webpage, &quot;.listing-title&quot;)
 
 # Extract the name of the bar
-wine_rooms &lt;- html_text(wine_room)
+wine_shops &lt;- html_text(wine_listing)
 
-wine_rooms</code></pre>
-<pre><code>## [1] &quot;Casa Dumetz Wines&quot;                     
-## [2] &quot;Riverbench Santa Barbara Tasting Room&quot; 
-## [3] &quot;Beckmen Vineyards&quot;                     
-## [4] &quot;Presqu’ile Winery&quot;                     
-## [5] &quot;Sunstone Winery&quot;                       
-## [6] &quot;Grassini Family Vineyards Tasting Room&quot;
-## [7] &quot;Gainey Vineyard&quot;</code></pre>
+wine_shops</code></pre>
+<pre><code>## [1] &quot;Bien Nacido &amp; Solomon Hills Tasting Room&quot;
+## [2] &quot;Au Bon Climat&quot;                           
+## [3] &quot;Jaffurs Wine Cellars&quot;                    
+## [4] &quot;Bridlewood Estate Winery&quot;                
+## [5] &quot;Margerum Wine Company and Barden Wines&quot;  
+## [6] &quot;Riverbench Vineyard &amp; Winery&quot;            
+## [7] &quot;Jamie Slone Wines Tasting Room&quot;</code></pre>
 </div>
 <div id="extract-the-urls-to-the-websites" class="section level3" number="5.2.3">
 <h3 number="5.2.3"><span class="header-section-number">5.2.3</span> 4. Extract the URLs to the websites:</h3>
@@ -4158,27 +4159,27 @@ websites &lt;- html_nodes(webpage, &quot;.website-button.button&quot;)
 websites_urls &lt;- html_attr(websites, &quot;href&quot;)
 
 websites_urls</code></pre>
-<pre><code>## [1] &quot;http://casadumetzwines.com&quot;                           
-## [2] &quot;https://riverbench.com/visit-us/&quot;                     
-## [3] &quot;http://www.beckmenvineyards.com/visiting-the-vineyard&quot;
-## [4] &quot;http://www.presquilewine.com&quot;                         
-## [5] &quot;http://www.sunstonewinery.com&quot;                        
-## [6] &quot;http://www.GrassiniFamilyVineyards.com&quot;               
-## [7] &quot;http://www.gaineyvineyard.com&quot;</code></pre>
+<pre><code>## [1] &quot;http://biennacidoestate.com/&quot;         
+## [2] &quot;http://www.aubonclimat.com&quot;           
+## [3] &quot;http://www.jaffurswine.com&quot;           
+## [4] &quot;http://www.bridlewoodestatewinery.com&quot;
+## [5] &quot;http://www.margerumwines.com&quot;         
+## [6] &quot;https://riverbench.com&quot;               
+## [7] &quot;https://www.jamieslonewines.com/&quot;</code></pre>
 </div>
 <div id="create-a-data-frame-and-save-it-as-csv" class="section level3" number="5.2.4">
 <h3 number="5.2.4"><span class="header-section-number">5.2.4</span> 5. Create a data frame and save it as csv:</h3>
 <pre class="r"><code># Create the data frame
-my_wine_tasting &lt;- data.frame(wine_tasting_room = wine_rooms, 
+df_wine_shops &lt;- data.frame(wine_tasting_room = wine_shops, 
                            website = websites_urls)
 
 # write it to csv
-write.csv(my_wine_tasting, &quot;./data/places_you_will_go.csv&quot;, row.names = FALSE)
+write.csv(df_wine_shops, &quot;./data/places_you_will_go.csv&quot;, row.names = FALSE)
 
 
-datatable(my_wine_tasting)</code></pre>
-<div id="htmlwidget-5c73972c35a7d71b2679" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5c73972c35a7d71b2679">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7"],["Casa Dumetz Wines","Riverbench Santa Barbara Tasting Room","Beckmen Vineyards","Presqu’ile Winery","Sunstone Winery","Grassini Family Vineyards Tasting Room","Gainey Vineyard"],["http://casadumetzwines.com","https://riverbench.com/visit-us/","http://www.beckmenvineyards.com/visiting-the-vineyard","http://www.presquilewine.com","http://www.sunstonewinery.com","http://www.GrassiniFamilyVineyards.com","http://www.gaineyvineyard.com"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>wine_tasting_room<\/th>\n      <th>website<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+datatable(df_wine_shops)</code></pre>
+<div id="htmlwidget-721b9a320f507ed3172c" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-721b9a320f507ed3172c">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7"],["Bien Nacido &amp; Solomon Hills Tasting Room","Au Bon Climat","Jaffurs Wine Cellars","Bridlewood Estate Winery","Margerum Wine Company and Barden Wines","Riverbench Vineyard &amp; Winery","Jamie Slone Wines Tasting Room"],["http://biennacidoestate.com/","http://www.aubonclimat.com","http://www.jaffurswine.com","http://www.bridlewoodestatewinery.com","http://www.margerumwines.com","https://riverbench.com","https://www.jamieslonewines.com/"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>wine_tasting_room<\/th>\n      <th>website<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 <p><br></p>
 </div>
 </div>
