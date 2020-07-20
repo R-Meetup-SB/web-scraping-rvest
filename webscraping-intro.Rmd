@@ -181,7 +181,7 @@ my_wine_tasting <- data.frame(wine_tasting_room = wine_rooms,
                            website = websites_urls)
 
 # write it to csv
-write.csv(my_wine_tasting, "~/data/places_you_will_go.csv", row.names = FALSE)
+write.csv(my_wine_tasting, "./data/places_you_will_go.csv", row.names = FALSE)
 
 
 datatable(my_wine_tasting)
