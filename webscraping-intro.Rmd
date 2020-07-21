@@ -81,7 +81,9 @@ Status codes:
 - `4xx`: Client Error; the famous 404: resource not found
 - `5xx`: Server Error
 
-## HTML
+## Document Types
+
+### HTML
 
 The *H*yper*T*ext *M*arkup *L*anguage (`HTML`) describes and defines the content of a webpage. Other technologies besides HTML are generally used to describe a webpage's appearance/presentation (CSS) or functionality (JavaScript).
 
@@ -91,15 +93,17 @@ HTML uses "markup" to annotate text, images, and other content for display in a 
 
 Using you web browser, you can inspect the HTML content of any webpage of the World Wide Web.
 
-## XML
+### XML
 
 The e*X*tensible *M*arkup *L*anguage (XML) provides a general approach for representing all types of information, such as data sets containing numerical and categorical variables. XML provides the basic, common, and quite simple structure and syntax for all “dialects” or vocabularies. For example, `HTML`, `SVG` and `EML` are specific vocabularies of XML.
 
-## XPath
+## How to access information
+
+### XPath
 
 `XPath` is quite simple but yet very powerful. Similar syntax to a file system hierarchy, it allows to identify nodes of interest by specifying paths through the tree, based on node names, node content, and a node’s relationship to other nodes in the hierarchy. We typically use XPath to locate nodes in a tree and then use R functions to extract data from those nodes and bring the data into R.
 
-## CSS
+### CSS
 
 *C*ascading *S*tyle *S*heets (`CSS`) is a stylesheet language used to describe the presentation of a document written in HTML or XML. CSS describes how elements should be rendered on screen, on paper, in speech, or on other media. In CSS, **selectors** are used to target the HTML elements on a web page that we want to style. There are a wide variety of CSS selectors available, allowing for fine grained precision when selecting elements to style.
 
@@ -115,24 +119,24 @@ The e*X*tensible *M*arkup *L*anguage (XML) provides a general approach for repre
 
 <br>
 
-# rvest
+# `rvest`
 
 `rvest` is a set of wrappers functions around the `xml2` and `httr` packages
 
-## Main functions
+Main functions:
 
 - `read_html`:  read a webpage into R as XML (document and nodes)
 - `html_nodes`: extract pieces out of HTML documents using XPath and/or CSS selectors
 - `html_attr`: extract attributes from HTML, such as `href`
 - `html_text`: extract text content
 
-For more information on the package: [here](https://github.com/hadley/rvest)
+For more information on the package: [here](https://github.com/tidyverse/rvest)
 
 ## Quick example
 
-Let us get started with organizing your evenings. The [*Funk Zone*](http://santabarbaraca.com/explore-and-discover-santa-barbara/neighborhoods-towns/santa-barbara/the-funk-zone/) is a pretty fun part of Santa Barbara, where you can find wineries, bars and restaurants. Check this out: <https://santabarbaraca.com/plan-your-trip/wine/wine-shops/>
+In this example we are going to extract information about Santa Barbara's wine shops from https://santabarbaraca.com/. This website collects a lot of information on how to best visit our town. For example they have information about The [*Funk Zone*](http://santabarbaraca.com/explore-and-discover-santa-barbara/neighborhoods-towns/santa-barbara/the-funk-zone/). Here is their listing of the local wine shops <https://santabarbaraca.com/plan-your-trip/wine/wine-shops/>
 
-We are going to scrape the name of the wine shops and their websites out of this webpage and compile this information into a csv, so you will be able to quickly choose where to go to relax next time we can get out!
+We are going to scrape the name of the wine shops and their websites out of this web page and compile this information into a csv to share with our friends!
 
 
 ### 1. Look at the website structure using our web browser inspector:
