@@ -1,5 +1,42 @@
+---
+title: "Nintendo"
+author: "brunj7"
+knit: (function(input_file, encoding) {
+  out_dir <- 'docs';
+  rmarkdown::render(input_file,
+  encoding=encoding,
+  output_file=file.path(dirname(input_file), out_dir, 'nintendo.html'))})
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+```{r Animal Crossing table, message=FALSE}
 library(rvest)
 library(DT)
+
+
+# Website
+url <- "https://animalcrossing.fandom.com/wiki/Villager_list_(New_Horizons)"
+
+# Read into R
+webpage <- read_html(url)
+
+# Extract the table object
+table <- html_nodes(webpage, ".roundy.sortable") %>%  
+  html_table()
+
+# Extract the data frame from the list
+df_acnh <- table[[1]]
+
+write.csv(df_acnh, "./data/acnh_characters.csv", row.names = FALSE)
+
+DT::datatable(df_acnh)
+```
+```{r Best Switch games at BestBuy}
 
 # webpage to scrape
 url_nintendo <- "https://www.bestbuy.com/site/searchpage.jsp?_dyncharset=UTF-8&browsedCategory=pcmcat1484080052161&id=pcat17071&iht=n&ks=960&list=y&qp=customerreviews_facet%3DCustomer%20Rating~Top-Rated&sc=Global&st=categoryid%24pcmcat1484080052161&type=page&usc=All%20Categories"
@@ -8,7 +45,7 @@ url_nintendo <- "https://www.bestbuy.com/site/searchpage.jsp?_dyncharset=UTF-8&b
 webpage <- read_html(url_nintendo)
 
 ## Parse the listing of games ----
-games <- html_nodes(webpage, '.sku-header a')
+games <- html_nodes(webpage, '.sku-header > a')
 
 # Get the names
 game_titles <- html_text(games)
@@ -30,6 +67,9 @@ ratings_score <- html_attr(ratings, "alt") %>%
 df_switch_games <- data.frame(game = game_titles,
                           website = full_links,
                           ratings = ratings_score)
+write.csv(df_switch_games, "./data/best_switch_games.csv", row.names = FALSE)
 
 # Render the table
 DT::datatable(df_switch_games)
+```
+
