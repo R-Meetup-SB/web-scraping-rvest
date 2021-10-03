@@ -139,13 +139,13 @@ In this example we are going to extract information about Santa Barbara's wine s
 We are going to scrape the name of the wine shops and their websites out of this web page and compile this information into a csv to share with our friends!
 
 
-### 1. Look at the website structure using our web browser inspector:
+### Look at the website structure using our web browser inspector:
 
 ![web browser inspector](images/webbrowser_inspector.png)
 
 
 
-### 2. Use this information to extract the wine shop's names from the webpage:
+### Use this information to extract the wine shop's names from the webpage:
 s
 ```{r, message=FALSE, warning=FALSE, error=FALSE}
 #install.packages("rvest")
@@ -165,7 +165,7 @@ wine_shops <- html_text(wine_listing)
 wine_shops
 ```
 
-### 4. Extract the URLs to the websites:
+### Extract the URLs to the websites:
 
 ```{r}
 # Parse the page for the nodes containing the website URLs
@@ -179,7 +179,7 @@ websites_urls
 
 
 
-### 5. Create a data frame and save it as csv:
+### Create a data frame and save it as csv:
 
 ```{r}
 # Create the data frame
